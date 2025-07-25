@@ -21,9 +21,11 @@ public class Brad07 {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
 
+	@Autowired
+	private Response response;
 	
 	@PostMapping("/member")
-	public void addMember(@RequestBody Member member) {
+	public Response addMember(@RequestBody Member member) {
 		String sql = """
 				INSERT INTO member (account,passwd,name)
 				VALUES (:account, :passwd, :name)
@@ -35,6 +37,10 @@ public class Brad07 {
 		
 		jdbc.update(sql, params);
 		
+		response.setError(0);
+		response.setMesg("Success");
+		
+		return response;
 	}
 	
 	

@@ -1,0 +1,24 @@
+package tw.brad.spring1.apis;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Response {
+	private int error;	// 0: success
+	private String mesg;
+	
+	
+	public int getError() {
+		return error;
+	}
+	public void setError(int error) {
+		this.error = error;
+	}
+	public String getMesg() {
+		return mesg;
+	}
+	public void setMesg(String mesg) {
+		this.mesg = mesg;
+	}
+	
+}
