@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class Response {
 	private int error;	// 0: success
 	private String mesg;
-	
+	private int insertId;
 	
 	public int getError() {
 		return error;
@@ -19,6 +19,12 @@ public class Response {
 	}
 	public void setMesg(String mesg) {
 		this.mesg = mesg;
+	}
+	public int getInsertId() {
+		return insertId;
+	}
+	public void setInsertId(int insertId) {
+		this.insertId = insertId;
 	}
 	
 }
