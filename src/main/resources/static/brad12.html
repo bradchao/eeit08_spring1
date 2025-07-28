@@ -1,0 +1,24 @@
+<meta charset="UTF-8" />
+<h1>訂單查詢</h1>
+<hr />
+<input id="id" type="number" />
+<button onclick="query()">查詢</button>
+<hr />
+<table>
+	<thead>
+		<tr>
+			<th>產品名稱</th>
+			<th>單價</th>
+			<th>數量</th>
+			<th>小計</th>
+		</tr>
+	</thead>
+	<tbody id="tbody"></tbody>
+</table>
+
+<script>
+	function query(){
+		let url="brad12/orders/" + document.getElementById("id").value;
+		fetch(url)
+	}
+</script>
