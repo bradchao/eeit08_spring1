@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RequestMapping("/brad08")
 @RestController
 public class Brad08 {
@@ -27,7 +29,7 @@ public class Brad08 {
 	
 	@PostMapping(value= {"/member", "/member/{isGetId}"})
 	public Response test1(
-			@RequestBody Member member, 
+			@RequestBody @Valid Member member, 
 			@PathVariable(required = false)Boolean isGetId) {
 		
 		isGetId = isGetId == null ? false : isGetId;
