@@ -3,6 +3,7 @@ package tw.brad.spring1.apis;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -75,8 +76,14 @@ public class Brad08 {
 			params[i].addValue("name", members.get(i).getName());
 		}
 		
-		int[] n = jdbc.batchUpdate(sql, params);
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		int[] n = jdbc.batchUpdate(sql, params, keyHolder);
 		System.out.println(n.length);
+		
+		List<Map<String,Object>> ids = keyHolder.getKeyList();
+		for (Map<String,Object> id: ids) {
+			System.out.println(id.get("GENERATED_KEY"));
+		}
 		
 		
 		return response;
