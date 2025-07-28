@@ -21,10 +21,15 @@ public class Brad09 {
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
 	
+	@Autowired
+	private RestTemplate template;
+	
 	@RequestMapping("/test1")
 	public void test1() {
 		String url = "https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelStay.aspx";
-		RestTemplate template = new RestTemplate();
+		
+		//RestTemplate template = new RestTemplate();
+		
 		String content = template.getForObject(url, String.class);
 		//System.out.println(content);
 		
@@ -62,7 +67,7 @@ public class Brad09 {
 	@RequestMapping("/test2")
 	public void test2() {
 		String url = "https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelStay.aspx";
-		RestTemplate template = new RestTemplate();
+		//RestTemplate template = new RestTemplate();
 		
 		Hotel[] hotels = template.getForObject(url, Hotel[].class);
 		for(Hotel hotel : hotels) {
