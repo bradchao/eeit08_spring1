@@ -8,8 +8,7 @@ public class OrderDetail {
 	private String pname;
 	private double price;
 	private int qty;
-	
-	
+	private double total;
 	
 	public int getId() {
 		return id;
@@ -28,13 +27,19 @@ public class OrderDetail {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+		this.total = this.price * this.qty;
 	}
 	public int getQty() {
 		return qty;
 	}
 	public void setQty(int qty) {
 		this.qty = qty;
+		this.total = this.price * this.qty;
 	}
+	public double getTotal() {
+		return total;
+	}
+
 	
 	
 	
