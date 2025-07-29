@@ -1,9 +1,15 @@
 <meta charset="UTF-8" />
+<style>
+	table {border-collapse: collapse; width:80%; margin:20px}
+	th, td {border: 1px solid #ddd; padding:8px; text-align:center}
+	th {background-color: #f2f2f2 }
+</style>
 <h1>訂單查詢</h1>
 <hr />
 <input id="id" type="number" />
 <button onclick="query()">查詢</button>
 <hr />
+<h3 id='h3'></h3>
 <table>
 	<thead>
 		<tr>
@@ -19,6 +25,28 @@
 <script>
 	function query(){
 		let url="brad12/orders/" + document.getElementById("id").value;
-		fetch(url)
+		fetch(url).then(res => res.json()).then(data => {
+			console.log(data);
+			data.forEach(
+				order =>{
+					document.getElementById('h3').innerHTML = `訂單編號: ${order.orderId}, 日期: ${order.orderDate}`;	
+					
+					let tbody = document.getElementById('tbody');
+					tbody.innerHTML = `
+						${order.orderDetails.map(
+							detail => `
+								<tr>
+									<td>${detail.pname}</td>
+									<td>${detail.price}</td>
+									<td>${detail.qty}</td>
+									<td>${detail.total}</td>
+								</tr>
+							`
+						).join('')}
+					`;
+					
+				}		
+			);
+		});
 	}
 </script>
