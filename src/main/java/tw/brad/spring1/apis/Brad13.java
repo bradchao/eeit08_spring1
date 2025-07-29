@@ -1,11 +1,14 @@
 package tw.brad.spring1.apis;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,10 @@ public class Brad13 {
 
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
+	
+	@Autowired
+	private ReadProperties readProperties;
+	
 	
 	@PostMapping("/member/{id}")
 	public void test1(@PathVariable Integer id, 
@@ -39,6 +46,34 @@ public class Brad13 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
+	@PostMapping("/member")
+	public void test1(@ModelAttribute MemberForm memberForm) {
+		System.out.println(memberForm.getAccount());
+		System.out.println(memberForm.getFiles().size());
+		System.out.println(readProperties.getUploadDir());
+		
+		File here = new File(".");
+		System.out.println(here.getAbsolutePath());
+		
+		String uploadDir = here.getAbsolutePath() +  "/" + readProperties.getUploadDir();
+		System.out.println(uploadDir);
+		
+		List<MultipartFile> files = memberForm.getFiles();
+		for (MultipartFile file: files) {
+			if (!file.isEmpty()) {
+				System.out.println(uploadDir + file.getOriginalFilename());
+				String fname = uploadDir + file.getOriginalFilename();
+				try {
+					file.transferTo(new File(fname));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
+	
 }
